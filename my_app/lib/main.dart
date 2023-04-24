@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Vamos Cozinhar?',
       theme: ThemeData(
+        primarySwatch: Colors.pink,
         colorScheme: ColorScheme.fromSwatch().copyWith(
           primary: Colors.pink,
           secondary: Colors.amber,
