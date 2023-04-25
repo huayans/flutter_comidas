@@ -31,7 +31,7 @@ class _TabsScreenState extends State<TabsScreen> {
           child: Text(_screens[_selectedScreenIndex]['title'] as String),
         ),
       ),
-      drawer: MainDrawer(),
+      drawer: const MainDrawer(),
       body: _screens[_selectedScreenIndex]['screen'] as Widget,
       bottomNavigationBar: BottomNavigationBar(
         onTap: _selectedScreen,

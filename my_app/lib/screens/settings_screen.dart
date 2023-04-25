@@ -1,9 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
-class SttingsScreen extends StatelessWidget {
+import 'package:my_app/components/main_drawer.dart';
+import 'package:my_app/models/settings.dart';
+
+class SttingsScreen extends StatefulWidget {
   const SttingsScreen({super.key});
+
+  @override
+  State<SttingsScreen> createState() => _SttingsScreenState();
+}
+
+class _SttingsScreenState extends State<SttingsScreen> {
+  var settings = Settings();
+
+  Widget _createSwith(
+    String title,
+    String subtitle,
+    bool value,
+    Function(bool) onChanged,
+  ) {
+    return SwitchListTile.adaptive(
+      title: Text(title),
+      subtitle: Text(subtitle),
+      value: value,
+      onChanged: onChanged,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -11,8 +33,47 @@ class SttingsScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Configurações'),
       ),
-      body: const Center(
-        child: Text('Configurações'),
+      drawer: const MainDrawer(),
+      body: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(20),
+            child: Text(
+              'Configurações',
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
+          ),
+          Expanded(
+            child: ListView(
+              children: [
+                _createSwith(
+                  'Sem Glúten',
+                  'Só exibe refeições sem glúten',
+                  settings.isGlutenFree,
+                  (value) => setState(() => settings.isGlutenFree = value),
+                ),
+                _createSwith(
+                  'Sem Lactose',
+                  'Só exibe refeições sem lactose',
+                  settings.isLactoseFree,
+                  (value) => setState(() => settings.isLactoseFree = value),
+                ),
+                _createSwith(
+                  'Vegana',
+                  'Só exibe refeições vegana',
+                  settings.isVegan,
+                  (value) => setState(() => settings.isVegan = value),
+                ),
+                _createSwith(
+                  'Vegetariano',
+                  'Só exibe refeições Vegetarianas',
+                  settings.isVegetarian,
+                  (value) => setState(() => settings.isVegetarian = value),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
