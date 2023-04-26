@@ -4,14 +4,21 @@ import 'package:my_app/components/main_drawer.dart';
 import 'package:my_app/models/settings.dart';
 
 class SttingsScreen extends StatefulWidget {
-  const SttingsScreen({super.key});
+  final Settings settings;
+  final Function(Settings) onSettingsChanged;
+  const SttingsScreen(this.onSettingsChanged, this.settings, {super.key});
 
   @override
   State<SttingsScreen> createState() => _SttingsScreenState();
 }
 
 class _SttingsScreenState extends State<SttingsScreen> {
-  var settings = Settings();
+  late Settings settings;
+  @override
+  void initState() {
+    super.initState();
+    settings = widget.settings;
+  }
 
   Widget _createSwith(
     String title,
@@ -23,7 +30,10 @@ class _SttingsScreenState extends State<SttingsScreen> {
       title: Text(title),
       subtitle: Text(subtitle),
       value: value,
-      onChanged: onChanged,
+      onChanged: (value) {
+        onChanged(value);
+        widget.onSettingsChanged(settings);
+      },
     );
   }
 
